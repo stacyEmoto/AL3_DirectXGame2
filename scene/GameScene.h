@@ -29,6 +29,10 @@ public: // メンバ関数
 	uint32_t textureHandleStage_ = 0;
 	Model* modelStage_ = nullptr;
 	WorldTransform worldTransformStage_;
+	//プレイヤー
+	uint32_t texturHandlePlayer_ = 0;
+	Model* modelPlayer_ = nullptr;
+	WorldTransform worldTranceFormPlayer_;
 	
 	/// <summary>
 	/// デストラクタ
@@ -44,6 +48,14 @@ public: // メンバ関数
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
+
+	void PlayerUpdate() {
+		worldTranceFormPlayer_.matWorld_ = MakeAffineMatrix(
+		    worldTransformStage_.scale_, worldTransformStage_.rotation_,
+		    worldTransformStage_.translation_
+		);
+		worldTranceFormPlayer_.TransferMatrix();
+	}
 
 	/// <summary>
 	/// 描画

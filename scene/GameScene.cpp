@@ -9,6 +9,7 @@ GameScene::~GameScene() {
 
 	delete spriteBG_;
 	delete modelStage_;
+	delete modelPlayer_;
 }
 
 void GameScene::Initialize() {
@@ -35,11 +36,16 @@ void GameScene::Initialize() {
 	worldTransformStage_.matWorld_ = MakeAffineMatrix(
 	    worldTransformStage_.scale_, worldTransformStage_.rotation_,
 	    worldTransformStage_.translation_);
+	//プレイヤー
+	texturHandlePlayer_ = TextureManager::Load("player.png");
+	modelPlayer_ = Model::Create();
+	worldTranceFormPlayer_.scale_ = {0.5f, 0.5f, 0.5f};
+	worldTranceFormPlayer_.Initialize();
 	//変換行列を定数バッファに転送
 	worldTransformStage_.TransferMatrix();
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { PlayerUpdate(); }
 
 void GameScene::Draw() {
 
@@ -70,6 +76,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	modelStage_->Draw(worldTransformStage_, viewProjection_, textureHandleStage_);
+	modelPlayer_->Draw(worldTranceFormPlayer_, viewProjection_, texturHandlePlayer_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
