@@ -20,6 +20,16 @@ public: // メンバ関数
 	/// </summary>
 	GameScene();
 
+	ViewProjection viewProjection_;
+
+	//背景
+	uint32_t textureHandleBG_ = 0;
+	Sprite* spriteBG_ = nullptr;
+	//ステージ
+	uint32_t textureHandleStage_ = 0;
+	Model* modelStage_ = nullptr;
+	WorldTransform worldTransformStage_;
+	
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
